@@ -113,12 +113,21 @@ class GraphsController < ApplicationController
         sql << " LIMIT 6"
         top_projects = ActiveRecord::Base.connection.select_all(sql).collect { |p| p["project_id"] }
 
+       tracker_ids = [1]
+
         # Get the issues created per project, per day
         sql = "SELECT project_id, date(#{Issue.table_name}.created_on) as date, COUNT(*) as issue_count"
         sql << " FROM #{Issue.table_name}"
         sql << " WHERE project_id IN (%s)" % top_projects.compact.join(',')
+        sql << " AND tracker_id IN (%s)" % tracker_ids.compact.join(',')
         sql << " GROUP BY project_id, date"
         issue_counts = ActiveRecord::Base.connection.select_all(sql).group_by { |c| c["project_id"] }
+
+        top_projects.each do |project|
+          unless issue_counts[project]
+            top_projects.delete(project)
+          end
+        end
 
         # Generate the created_on lines
         top_projects.each do |project_id, total_count|
