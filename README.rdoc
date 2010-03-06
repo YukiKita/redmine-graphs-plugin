@@ -10,3 +10,14 @@ Modified by Hiroki Yagita. (http://github.com/yagihiro/redmine-graphs-plugin)
 - add japanese locale setting.
 - modify to work on redmine 0.8.5 - 0.8.7.
 - fixed several bugs.
+
+=== Plugin installation
+
+1. Copy the plugin directory into the vendor/plugins directory
+2. Rename the plugin directory to redmine-graphs-plugin
+3. Start Redmine
+
+=== Note
+
+This plugin works only Redmine 0.9.0 or higher.
+
