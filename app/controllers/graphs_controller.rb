@@ -65,6 +65,7 @@ class GraphsController < ApplicationController
 
     # Displays total number of issues over time
     def issue_growth
+      @selectable_trackers = @project ? @project.trackers : Tracker.all
     end
 
     # Displays created vs update date on open issues over time
@@ -200,7 +201,6 @@ class GraphsController < ApplicationController
 
     # Displays open and total issue counts over time
     def target_version_graph
-
         # Initialize the graph
         graph = SVG::Graph::TimeSeries.new({
             :area_fill => true,
