@@ -10,7 +10,7 @@ Modified by Hiroki Yagita. (http://github.com/yagihiro/redmine-graphs-plugin)
 - modify to work on redmine 0.8.5 - 0.8.7.
 - fixed several bugs.
 
-Modified by Hiroki Yuki Kita
+Modified by Yuki Kita (http://github.com/YukiKita/redmine-graphs-plugin)
 - added the selection of trackers that are shown on the issue growth graph
 
 === Plugin installation
