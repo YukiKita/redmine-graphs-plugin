@@ -95,7 +95,7 @@ class GraphsController < ApplicationController
             :stagger_x_labels => true,
             :style_sheet => "/plugin_assets/redmine-graphs-plugin/stylesheets/issue_growth.css",
             :width => 720,
-            :x_label_format => "%Y-%m-%d"
+            :x_label_format => "%y/%m/%d"
         })
 
         # Get the top visible projects by issue count
