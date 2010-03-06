@@ -1,25 +1,13 @@
 <h2><%= l(:label_graphs_issue_growth) %></h2>
 
-<table border = "0" align ="center">
-<tr>
-<tr>
-<% @selectable_trackers.each do |tracker| %>
-  <td><%= tracker.name %></td>
+<% unless @issues.nil? %>
+    <%= tag("embed", :width => "100%", :height => 300, :type => "image/svg+xml",
+    :src => url_for(:controller => 'graphs', :action => 'issue_growth_graph')) if @project.nil? %>
+    <%= tag("embed", :width => "100%", :height => 300, :type => "image/svg+xml",
+    :src => url_for(:controller => 'graphs', :action => 'issue_growth_graph', :project_id => @project.id)) unless @project.nil? %>
+<% else %>
+    <%= render :partial => 'issues/list_simple', :locals => { :issues => @issues } %>
 <% end %>
-<td></td>
-</tr>
-<% @selectable_trackers.each do |tracker| %>
-  <td><%= check_box_tag tracker.name, tracker.id, checked=true %></td>
-<% end %>
-<td>
-<%= submit_tag l(:button_update) %>
-</td>
-</tr>
-</table>
-
-<div id="issue_growth_graph">
-    <%= render :partial => 'issue_growth_graph' %>
-</div>
 
 <% content_for :sidebar do %>
     <%= render :partial => 'issues/sidebar' %>

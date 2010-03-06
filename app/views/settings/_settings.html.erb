@@ -1,0 +1,16 @@
+<table border = "0">
+  <% trackers = Tracker.all %>
+  <tr>
+    <% trackers.each do |tracker| %>
+      <td><%= tracker.name %></td>
+    <% end %>
+  </tr>
+  <tr>
+    <% trackers.each do |tracker| %>
+      <td><%= check_box_tag 'settings[tracker_ids][]', tracker.id, checked=@settings["tracker_ids"].include?(tracker.id.to_s) %></td>
+    <% end %>
+  </tr>
+</table>
+
+
+

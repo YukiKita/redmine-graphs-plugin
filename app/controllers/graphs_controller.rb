@@ -65,7 +65,6 @@ class GraphsController < ApplicationController
 
     # Displays total number of issues over time
     def issue_growth
-      @selectable_trackers = @project ? @project.trackers : Tracker.all
     end
 
     # Displays created vs update date on open issues over time
@@ -147,6 +146,7 @@ class GraphsController < ApplicationController
         # Compile the graph
         headers["Content-Type"] = "image/svg+xml"
         send_data(graph.burn, :type => "image/svg+xml", :disposition => "inline")
+        render :partial => 'issue_growth_graph' if request.xhr?
     end
 
 
