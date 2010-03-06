@@ -9,5 +9,5 @@ Redmine::Plugin.register :redmine_graphs do
   author 'Brad Beattie'
   description 'This plugin provides instances of Redmine with additional graphs.'
   version '0.1.0'
-  settings :default=>{"tracker_ids"=>["1"]}, :partial => 'settings/settings'
+  settings :default=>{"tracker_ids"=>["1"]}, :partial => 'settings/graphs_settings'
 end
