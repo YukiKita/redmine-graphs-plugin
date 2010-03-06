@@ -93,7 +93,7 @@ class GraphsController < ApplicationController
             :show_data_points => false,
             :show_data_values => false,
             :stagger_x_labels => true,
-            :style_sheet => "/plugin_assets/redmine-graphs-plugin/stylesheets/issue_growth.css",
+            :style_sheet => "/plugin_assets/redmine_graphs/stylesheets/issue_growth.css",
             :width => 720,
             :x_label_format => "%y/%m/%d"
         })
@@ -113,7 +113,7 @@ class GraphsController < ApplicationController
         sql << " LIMIT 6"
         top_projects = ActiveRecord::Base.connection.select_all(sql).collect { |p| p["project_id"] }
 
-       tracker_ids = [1]
+        tracker_ids = Setting.plugin_redmine_graphs["tracker_ids"].map{|e| e.to_i}
 
         # Get the issues created per project, per day
         sql = "SELECT project_id, date(#{Issue.table_name}.created_on) as date, COUNT(*) as issue_count"
@@ -165,7 +165,7 @@ class GraphsController < ApplicationController
             :show_data_points => false,
             :show_data_values => false,
             :stagger_x_labels => true,
-            :style_sheet => "/plugin_assets/redmine-graphs-plugin/stylesheets/issue_age.css",
+            :style_sheet => "/plugin_assets/redmine_graphs/stylesheets/issue_age.css",
             :width => 720,
             :x_label_format => "%b %d"
         })
@@ -212,7 +212,7 @@ class GraphsController < ApplicationController
             :show_data_points => true,
             :show_data_values => false,
             :stagger_x_labels => true,
-            :style_sheet => "/plugin_assets/redmine-graphs-plugin/stylesheets/target_version.css",
+            :style_sheet => "/plugin_assets/redmine_graphs/stylesheets/target_version.css",
             :width => 800,
             :x_label_format => "%b %d"
         })

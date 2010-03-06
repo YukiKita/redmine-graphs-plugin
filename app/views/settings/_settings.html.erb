@@ -7,7 +7,8 @@
   </tr>
   <tr>
     <% trackers.each do |tracker| %>
-      <td><%= check_box_tag 'settings[tracker_ids][]', tracker.id, checked=@settings["tracker_ids"].include?(tracker.id.to_s) %></td>
+      <td><%= check_box_tag 'settings[tracker_ids][]', tracker.id, 
+	      checked=(@settings["tracker_ids"] && @settings["tracker_ids"].include?(tracker.id.to_s)) %></td>
     <% end %>
   </tr>
 </table>
