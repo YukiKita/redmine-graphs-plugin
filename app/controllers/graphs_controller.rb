@@ -65,6 +65,7 @@ class GraphsController < ApplicationController
 
     # Displays total number of issues over time
     def issue_growth
+      @trackers = Setting.plugin_redmine_graphs["tracker_ids"].map{|e| Tracker.find(e)}
     end
 
     # Displays created vs update date on open issues over time
@@ -113,7 +114,7 @@ class GraphsController < ApplicationController
         sql << " LIMIT 6"
         top_projects = ActiveRecord::Base.connection.select_all(sql).collect { |p| p["project_id"] }
 
-        tracker_ids = Setting.plugin_redmine_graphs["tracker_ids"].map{|e| e.to_i}
+        tracker_ids = Setting.plugin_redmine_graphs["tracker_ids"]
 
         # Get the issues created per project, per day
         sql = "SELECT project_id, date(#{Issue.table_name}.created_on) as date, COUNT(*) as issue_count"
