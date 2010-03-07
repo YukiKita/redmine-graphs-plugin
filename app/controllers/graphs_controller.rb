@@ -72,6 +72,7 @@ class GraphsController < ApplicationController
     def old_issues
         @issues_by_created_on = @issues.sort {|a,b| a.created_on<=>b.created_on}
         @issues_by_updated_on = @issues.sort {|a,b| a.updated_on<=>b.updated_on}
+        @trackers = selected_tracker_ids.map{|e| Tracker.find(e)}
     end
 
 
@@ -118,7 +119,7 @@ class GraphsController < ApplicationController
         sql = "SELECT project_id, date(#{Issue.table_name}.created_on) as date, COUNT(*) as issue_count"
         sql << " FROM #{Issue.table_name}"
         sql << " WHERE project_id IN (%s)" % top_projects.compact.join(',')
-        sql << " AND tracker_id IN (%s)" % selected_tracker_ids.compact.join(',')
+        sql << " AND tracker_id IN (%s)" % selected_tracker_ids.join(',')
         sql << " GROUP BY project_id, date"
         issue_counts = ActiveRecord::Base.connection.select_all(sql).group_by { |c| c["project_id"] }
 
@@ -290,9 +291,13 @@ class GraphsController < ApplicationController
     def find_open_issues
         find_optional_project
         if !@project.nil?
-            @issues = Issue.find(:all, :include => [:status,:project], :conditions => ["#{IssueStatus.table_name}.is_closed=? AND #{@project.project_condition(true)}", false])
+            @issues = Issue.find(:all, :include => [:status,:project],
+                                 :conditions => ["#{IssueStatus.table_name}.is_closed=? AND #{@project.project_condition(true)}  AND tracker_id IN (#{selected_tracker_ids.join(',')})",
+                                                 false])
         else
-            @issues = Issue.visible.find(:all, :include => [:status], :conditions => ["#{IssueStatus.table_name}.is_closed=?", false])
+            @issues = Issue.visible.find(:all, :include => [:status],
+                                         :conditions => ["#{IssueStatus.table_name}.is_closed=? AND tracker_id IN (#{selected_tracker_ids.join(',')})",
+                                                         false])
         end
     rescue ActiveRecord::RecordNotFound
         render_404
