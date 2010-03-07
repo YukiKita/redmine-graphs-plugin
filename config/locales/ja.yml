@@ -1,5 +1,5 @@
 ja:
-  label_graphs: グラフ
+  label_graphs: グラフ表示
   label_graphs_total_vs_closed_issues: 全チケット/終了チケット曲線
   label_graphs_old_issues: 未完了チケット増加曲線
   label_graphs_issue_growth: 信頼度成長曲線
