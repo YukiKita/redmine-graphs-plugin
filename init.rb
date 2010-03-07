@@ -8,6 +8,6 @@ Redmine::Plugin.register :redmine_graphs do
   name 'Redmine Graphs plugin'
   author 'Yuki Kita'
   description 'This plugin provides instances of Redmine with additional graphs.'
-  version '0.2.0'
+  version '0.2.1'
   settings :default=>{"tracker_ids"=>["1"]}, :partial => 'settings/graphs_settings'
 end
