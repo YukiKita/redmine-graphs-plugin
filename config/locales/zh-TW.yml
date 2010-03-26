@@ -1,0 +1,9 @@
+zh-TW:
+  label_graphs: 圖表
+  label_graphs_total_vs_closed_issues: 全部項目數量 vs. 已結束的項目數量
+  label_graphs_old_issues: 進行時間較久遠的項目
+  label_graphs_issue_growth: 累積項目數量
+  label_graphs_issue_status_flow: 最近 24 小時內的狀態改變
+  label_graphs_assigned_to_status_flow: 最近 24 小時內人員分派的改變
+  warning_no_issues: 沒有項目能拿來產生圖表
+  
